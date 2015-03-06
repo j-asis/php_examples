@@ -1,9 +1,9 @@
 <?
 if (isset($_GET['message'])) {
 // load font and image, calculate width of text
-$font = "times";
+$font = 'fonts-japanese-gothic.ttf';
 $size = 12;
-$image = imagecreatefrompng("button.png");
+$image = imagecreate("button.png");
 $tsize = imagettfbbox($size, 0, $font, $_GET['message']);
 $dx = abs($tsize[2] -$tsize[0]);
 $dy = abs($tsize[5] -$tsize[3]);

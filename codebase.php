@@ -29,9 +29,16 @@ class page{
 
     function __construct(){
         $this->mysqli = new mysqli("localhost", "root", 'nvTM$ql3', "php_exercises");
-        if(!isset($_GET['ch']) || !isset($_GET['ch'])){ $this->template = "home"; $this->home = true; }
-        $this->content = $this->get_template($this->template . ".html");
         $this->get_navs();
+        if(!isset($_GET['ch']) || !isset($_GET['ex'])){
+            $this->template = "home"; $this->home = true;
+            $this->content = $this->get_template($this->template . ".html");
+            $this->content = str_replace('__nav_links__', $this->nav, $this->content);
+        } else {
+            $this->content = $this->get_template($this->template . ".html");
+        }
+        
+        
     }
 
     public function get_page_id(){
@@ -59,7 +66,7 @@ class page{
     public function generate_content($contents){
         list($ilink, $gcode, $atitle) = $this->getcodes();
         $replaced = $contents;
-        $replaced = str_replace('__web_title__', 'PHP Examples : Jilson Asis', $replaced);
+        $replaced = str_replace('__web_title__', $atitle . " | Jilson Asis", $replaced);
         $replaced = str_replace('__nav_links__', $this->nav, $replaced);
         $replaced = str_replace('__ilink__', $ilink, $replaced);
         $replaced = str_replace('__codes__', htmlspecialchars($gcode), $replaced);
